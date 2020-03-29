@@ -23,7 +23,7 @@ public class CorporationServiceImpl implements CorporationService {
     }
 
     @Override
-    public Optional<Corporation> findById(Long id) {
+    public Optional<Corporation> findById(String id) {
         return repository.findById(id);
     }
 
@@ -36,13 +36,13 @@ public class CorporationServiceImpl implements CorporationService {
     }
 
     @Override
-    public Corporation update(Long id, Corporation corporation) {
+    public Corporation update(String id, Corporation corporation) {
         corporation.setId(id);
         return repository.save(corporation);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 

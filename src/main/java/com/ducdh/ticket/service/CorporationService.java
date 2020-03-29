@@ -12,13 +12,13 @@ public interface CorporationService {
 
     List<Corporation> findAll();
 
-    Optional<Corporation> findById(Long id);
+    Optional<Corporation> findById(String id);
 
     Corporation save(Corporation corporation);
 
-    Corporation update(Long id, Corporation corporation);
+    Corporation update(String id, Corporation corporation);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 
     Page<Corporation> getPageableCorporation(Pageable pageable);
 }

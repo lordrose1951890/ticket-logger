@@ -1,7 +1,6 @@
 package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.entity.Corporation;
-import com.ducdh.ticket.model.BaseRequest;
 import com.ducdh.ticket.service.CorporationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,11 +8,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Min;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/corporations")
@@ -40,7 +43,7 @@ public class CorporationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findOne(@PathVariable Long id) {
+    public ResponseEntity findOne(@PathVariable String id) {
         return ResponseEntity.of(service.findById(id));
     }
 
@@ -50,12 +53,12 @@ public class CorporationController {
     }
 
     @PutMapping("/{id}")
-    public Corporation update(@PathVariable Long id, @RequestBody Corporation corporation) {
+    public Corporation update(@PathVariable String id, @RequestBody Corporation corporation) {
         return service.update(id, corporation);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable String id) {
         if (!service.findById(id).isPresent())
             return ResponseEntity.notFound().build();
         service.deleteById(id);
