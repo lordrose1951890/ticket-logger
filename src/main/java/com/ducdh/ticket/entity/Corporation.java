@@ -2,11 +2,11 @@ package com.ducdh.ticket.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
@@ -17,9 +17,7 @@ import java.util.Date;
 public class Corporation {
 
     @Id()
-    @GeneratedValue(generator = "taskId-generator")
-    @GenericGenerator(name = "taskId-generator",
-            strategy = "com.ducdh.ticket.entity.identifier.TaskIdGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     private String name;
