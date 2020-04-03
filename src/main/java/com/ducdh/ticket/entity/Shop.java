@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name = "shop")
 @Data
 public class Shop {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

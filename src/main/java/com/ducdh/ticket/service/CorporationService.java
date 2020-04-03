@@ -1,7 +1,6 @@
 package com.ducdh.ticket.service;
 
 import com.ducdh.ticket.entity.Corporation;
-import com.ducdh.ticket.repository.CorporationRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
