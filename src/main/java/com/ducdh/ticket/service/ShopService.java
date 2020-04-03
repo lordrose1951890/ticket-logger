@@ -15,6 +15,4 @@ public interface ShopService {
     Shop update(Shop shop);
 
     void deleteShopById(Long id);
-
-    int getCount();
 }

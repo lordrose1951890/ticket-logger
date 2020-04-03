@@ -5,12 +5,15 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "subscription")
+@Table(name = "user")
 @Data
-public class Subscription {
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type;
+    private String name;
+
+    private String role;
 }
