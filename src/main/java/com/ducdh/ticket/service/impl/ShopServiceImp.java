@@ -1,6 +1,7 @@
 package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.Shop;
+import com.ducdh.ticket.model.exception.ResourceNotFoundException;
 import com.ducdh.ticket.repository.ShopRepository;
 import com.ducdh.ticket.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +33,16 @@ public class ShopServiceImp implements ShopService {
 
     @Override
     public Shop update(Shop shop) {
-        return shopRepository.save(shop);
+        return shopRepository.findById(shop.getId()).map(
+                shop1 -> shopRepository.save(shop)).orElseThrow(() -> new ResourceNotFoundException("Not found: " + shop.getId()));
     }
 
     @Override
     public void deleteShopById(Long id) {
-        shopRepository.deleteById(id);
+        shopRepository.findById(id).map(shop -> {
+            shopRepository.deleteById(id);
+            return shop;
+        }).orElseThrow(() -> new ResourceNotFoundException("Not found: " + id));
     }
 
 }

@@ -1,6 +1,7 @@
 package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.Account;
+import com.ducdh.ticket.model.exception.ResourceNotFoundException;
 import com.ducdh.ticket.repository.AccountRepository;
 import com.ducdh.ticket.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -37,11 +38,15 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public Account update(Account account) {
-        return accountRepository.save(account);
+        return accountRepository.findById(account.getUsername()).map(account1 -> accountRepository.save(account))
+                .orElseThrow(() -> new ResourceNotFoundException("Not found: " + account.getUsername()));
     }
 
     @Override
     public void delete(String username) {
-        accountRepository.deleteById(username);
+        accountRepository.findById(username).map(account -> {
+            accountRepository.deleteById(username);
+            return account;
+        }).orElseThrow(() -> new ResourceNotFoundException("Not found: " + username));
     }
 }

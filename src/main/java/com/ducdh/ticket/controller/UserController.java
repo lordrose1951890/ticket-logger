@@ -14,32 +14,28 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<?> allUser(){
+    public ResponseEntity<?> getAllUser(){
         return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity oneUser(@PathVariable Long id){
+    public ResponseEntity findOneUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping
-    public User userAddition(@RequestBody User user){
+    public User createUser(@RequestBody User user) throws Exception{
         return userService.save(user);
     }
 
     @PutMapping
-    public User userUpdatable(@RequestBody User user){
+    public User updateUser(@RequestBody User user) throws Exception{
         return userService.update(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id){
-        if (userService.getUserById(id).isPresent()){
-            userService.delete(id);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity deleteUser(@PathVariable Long id) throws Exception{
+        userService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

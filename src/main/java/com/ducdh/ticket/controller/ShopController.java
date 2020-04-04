@@ -14,32 +14,28 @@ public class ShopController {
     private final ShopService shopService;
 
     @GetMapping("/{shopName}")
-    public ResponseEntity<?> listOfShop(@PathVariable String shopName){
+    public ResponseEntity<?> getAllShopByName(@PathVariable String shopName){
         return ResponseEntity.ok(shopService.findByShopName(shopName));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity oneShop(@PathVariable Long id){
+    public ResponseEntity getOneShop(@PathVariable Long id){
         return ResponseEntity.ok(shopService.findByShopId(id));
     }
 
     @PostMapping
-    public Shop shopAddition(@RequestBody Shop shop){
+    public Shop createShop(@RequestBody Shop shop) throws Exception{
         return shopService.save(shop);
     }
 
     @PutMapping
-    public Shop shopUpdatable(@RequestBody Shop shop){
+    public Shop updateShop(@RequestBody Shop shop) throws Exception{
         return shopService.update(shop);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteShop(@PathVariable Long id){
-        if (shopService.findByShopId(id).isPresent()){
-            shopService.deleteShopById(id);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity deleteShop(@PathVariable Long id) throws Exception{
+        shopService.deleteShopById(id);
+        return ResponseEntity.ok().build();
     }
 }

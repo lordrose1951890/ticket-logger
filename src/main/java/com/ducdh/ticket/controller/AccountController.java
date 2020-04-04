@@ -14,32 +14,28 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping
-    public ResponseEntity<?> allAccounts(){
+    public ResponseEntity<?> getAllAccounts(){
         return ResponseEntity.ok(accountService.getAll());
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity oneAccount(@PathVariable String username){
+    public ResponseEntity getOneAccount(@PathVariable String username){
         return ResponseEntity.ok(accountService.getAccount(username));
     }
 
     @PostMapping
-    public Account accountAddition(@RequestBody Account account){
+    public Account createAccount(@RequestBody Account account) throws Exception{
         return accountService.save(account);
     }
 
     @PutMapping
-    public Account accountUpdatable(@RequestBody Account account){
+    public Account updateAccount(@RequestBody Account account) throws Exception{
         return accountService.update(account);
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity deleteAccount(@PathVariable String username){
-        if (accountService.getAccount(username).isPresent()){
-            accountService.delete(username);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity deleteAccount(@PathVariable String username) throws Exception{
+        accountService.delete(username);
+        return ResponseEntity.ok().build();
     }
 }

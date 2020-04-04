@@ -1,6 +1,7 @@
 package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.User;
+import com.ducdh.ticket.model.exception.ResourceNotFoundException;
 import com.ducdh.ticket.repository.UserRepository;
 import com.ducdh.ticket.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,11 +33,15 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User update(User user) {
-        return userRepository.save(user);
+        return userRepository.findById(user.getId()).map(user1 ->
+            userRepository.save(user)).orElseThrow(() -> new ResourceNotFoundException("Not found: " + user.getId()));
     }
 
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        userRepository.findById(id).map(user -> {
+            userRepository.deleteById(id);
+            return user;
+        }).orElseThrow(() -> new ResourceNotFoundException("Not found: " + id));
     }
 }
