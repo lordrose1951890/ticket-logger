@@ -1,4 +1,4 @@
-package com.ducdh.ticket.model;
+package com.ducdh.ticket.model.request;
 
 public class BaseRequest {
 

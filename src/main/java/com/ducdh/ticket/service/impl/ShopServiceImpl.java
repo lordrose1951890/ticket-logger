@@ -12,13 +12,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ShopServiceImp implements ShopService {
+public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
 
     @Override
-    public List<Shop> findByShopName(String shopName) {
-        return shopRepository.getAllByShopName(shopName);
+    public List<Shop> findAll() {
+        return shopRepository.findAll();
     }
 
     @Override
