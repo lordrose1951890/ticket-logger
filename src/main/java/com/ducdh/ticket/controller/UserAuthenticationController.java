@@ -2,7 +2,6 @@ package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.model.request.JwtRequest;
 import com.ducdh.ticket.model.response.JwtResponse;
-import com.ducdh.ticket.service.AccountService;
 import com.ducdh.ticket.service.impl.AccountDetailsService;
 import com.ducdh.ticket.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @CrossOrigin
