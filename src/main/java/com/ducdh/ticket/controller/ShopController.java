@@ -1,5 +1,6 @@
 package com.ducdh.ticket.controller;
 
+import com.ducdh.ticket.constant.Api;
 import com.ducdh.ticket.entity.Shop;
 import com.ducdh.ticket.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/shops")
+@RequestMapping(Api.ROOT_URL + "/shops")
 public class ShopController {
 
     private final ShopService shopService;

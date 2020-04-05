@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String authEntry = "/api/v1/accounts/authenticate";
+    private final String authEntry = "/api/v1/authenticate";
     private final String[] whiteList = {authEntry, "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests().antMatchers(whiteList).permitAll()
-        .anyRequest().permitAll()
+        .anyRequest().authenticated()
                 .and()
         .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
