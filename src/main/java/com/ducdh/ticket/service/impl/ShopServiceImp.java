@@ -2,6 +2,7 @@ package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.Shop;
 import com.ducdh.ticket.model.exception.ResourceNotFoundException;
+import com.ducdh.ticket.model.request.ShopRequest;
 import com.ducdh.ticket.repository.ShopRepository;
 import com.ducdh.ticket.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,10 @@ public class ShopServiceImp implements ShopService {
     }
 
     @Override
-    public Shop save(Shop shop) {
+    public Shop save(ShopRequest shopRequest) {
+        Shop shop = new Shop();
+        shop.setShopName(shopRequest.getShopName());
+        shop.setShopAddress(shopRequest.getShopAddress());
         return shopRepository.save(shop);
     }
 

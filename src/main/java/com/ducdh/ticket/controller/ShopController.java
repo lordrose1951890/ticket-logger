@@ -1,6 +1,7 @@
 package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.entity.Shop;
+import com.ducdh.ticket.model.request.ShopRequest;
 import com.ducdh.ticket.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ShopController {
     }
 
     @PostMapping
-    public Shop createShop(@RequestBody Shop shop) throws Exception{
+    public Shop createShop(@RequestBody ShopRequest shop) throws Exception{
         return shopService.save(shop);
     }
 
