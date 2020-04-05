@@ -2,6 +2,7 @@ package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.User;
 import com.ducdh.ticket.model.exception.ResourceNotFoundException;
+import com.ducdh.ticket.model.request.UserRequest;
 import com.ducdh.ticket.repository.UserRepository;
 import com.ducdh.ticket.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,10 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public User save(UserRequest userRequest) {
+        User user = new User();
+        user.setName(userRequest.getName());
+        user.setRole(userRequest.getRole());
         return userRepository.save(user);
     }
 

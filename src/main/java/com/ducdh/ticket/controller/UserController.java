@@ -1,6 +1,7 @@
 package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.entity.User;
+import com.ducdh.ticket.model.request.UserRequest;
 import com.ducdh.ticket.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) throws Exception{
+    public User createUser(@RequestBody UserRequest user) throws Exception{
         return userService.save(user);
     }
 

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "corporation")
+@Table(name = "tbl_corporation")
 @Data
 public class Corporation {
 
