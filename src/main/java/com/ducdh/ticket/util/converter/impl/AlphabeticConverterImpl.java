@@ -1,10 +1,12 @@
 package com.ducdh.ticket.util.converter.impl;
 
 import com.ducdh.ticket.util.converter.AlphabeticConverter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AlphabeticConverterImpl implements AlphabeticConverter {
 
-    private static final int DIGIT = (int) 'A';
+    private static final int DIGIT = 'A';
     private static final int DIGITS = (int) 'A' - 1;
 
     @Override

@@ -13,4 +13,13 @@ public class DateTimeFormatter {
             return "ERROR";
         }
     }
+
+    public static Date parse(String date, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        try {
+            return sdf.parse(date);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ShopService {
-    List<Shop> findByShopName(String shopName);
+    List<Shop> findAll();
 
     Optional<Shop> findByShopId(Long id);
 
