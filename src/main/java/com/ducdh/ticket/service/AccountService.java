@@ -10,7 +10,7 @@ public interface AccountService {
 
     List<Account> getAll();
 
-    Optional<Account> getAccount(String username);
+    Account getAccount(String username);
 
     Account save(AccountRequest account);
 

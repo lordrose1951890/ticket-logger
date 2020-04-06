@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ShopService {
     List<Shop> findAll();
 
-    Optional<Shop> findByShopId(Long id);
+    Shop findByShopId(Long id);
 
     Shop save(ShopRequest shop);
 

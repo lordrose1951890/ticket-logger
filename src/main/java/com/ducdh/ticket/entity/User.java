@@ -28,6 +28,8 @@ public class User implements Serializable {
 
     private String role;
 
+    private String status;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shopId", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)

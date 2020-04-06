@@ -3,8 +3,10 @@ package com.ducdh.ticket.service.impl;
 import com.ducdh.ticket.entity.User;
 import com.ducdh.ticket.model.exception.ResourceNotFoundException;
 import com.ducdh.ticket.repository.UserRepository;
+import com.ducdh.ticket.service.AccountService;
 import com.ducdh.ticket.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +18,18 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final AccountService accountService;
+
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public User getUserByUsername(String username) {
+        Long userId = accountService.getAccount(username).getUser().getId();
+        return userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User not found: " + userId));
     }
 
     @Override

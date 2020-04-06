@@ -31,8 +31,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Optional<Account> getAccount(String username) {
-        return accountRepository.findById(username);
+    public Account getAccount(String username) {
+        return accountRepository.findById(username).orElseThrow(() ->
+                new ResourceNotFoundException("Account not found: " + username));
     }
 
     @Override

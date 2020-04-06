@@ -1,6 +1,7 @@
 package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.entity.Account;
+import com.ducdh.ticket.model.exception.ResourceNotFoundException;
 import com.ducdh.ticket.model.request.AccountRequest;
 import com.ducdh.ticket.model.request.JwtRequest;
 import com.ducdh.ticket.model.response.JwtResponse;
@@ -27,27 +28,27 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping
-    public ResponseEntity<?> getAllAccounts(){
+    public ResponseEntity<?> getAllAccounts() {
         return ResponseEntity.ok(accountService.getAll());
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity getOneAccount(@PathVariable String username){
+    public ResponseEntity getOneAccount(@PathVariable String username) {
         return ResponseEntity.ok(accountService.getAccount(username));
     }
 
     @PostMapping
-    public Account createAccount(@RequestBody AccountRequest account) throws Exception{
+    public Account createAccount(@RequestBody AccountRequest account) throws Exception {
         return accountService.save(account);
     }
 
     @PutMapping
-    public Account updateAccount(@RequestBody Account account) throws Exception{
+    public Account updateAccount(@RequestBody Account account) throws Exception {
         return accountService.update(account);
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity deleteAccount(@PathVariable String username) throws Exception{
+    public ResponseEntity deleteAccount(@PathVariable String username) throws Exception {
         accountService.delete(username);
         return ResponseEntity.ok().build();
     }

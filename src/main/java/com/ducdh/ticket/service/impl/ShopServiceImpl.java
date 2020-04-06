@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +22,9 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Optional<Shop> findByShopId(Long id) {
-        return shopRepository.findById(id);
+    public Shop findByShopId(Long id) {
+        return shopRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Shop not found: " + id));
     }
 
     @Override
