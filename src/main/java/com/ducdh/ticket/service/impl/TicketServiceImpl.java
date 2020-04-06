@@ -43,6 +43,7 @@ public class TicketServiceImpl implements TicketService {
         newTicket.setDescription(request.getDescription());
         newTicket.setType(request.getType());
         newTicket.setFileUri(request.getFileUri());
+        newTicket.setStatus(request.getStatus());
         newTicket.setUser(userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " +
                         request.getUserId())));
@@ -55,6 +56,7 @@ public class TicketServiceImpl implements TicketService {
             ticket.setDescription(request.getDescription());
             ticket.setType(request.getDescription());
             ticket.setFileUri(request.getDescription());
+            ticket.setStatus(request.getStatus());
             return ticketRepository.save(ticket);
         }).orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " +
                 ticketId));
