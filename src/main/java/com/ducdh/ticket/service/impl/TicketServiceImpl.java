@@ -57,6 +57,7 @@ public class TicketServiceImpl implements TicketService {
             ticket.setType(request.getDescription());
             ticket.setFileUri(request.getDescription());
             ticket.setStatus(request.getStatus());
+            ticket.setAssignTo(request.getAssignTo());
             return ticketRepository.save(ticket);
         }).orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " +
                 ticketId));

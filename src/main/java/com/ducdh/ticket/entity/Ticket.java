@@ -33,9 +33,42 @@ public class Ticket {
 
     private String status;
 
+    private Long assignTo;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
+
+    public int getPriority() {
+        int priority;
+        switch (type) {
+            case "Computer error":
+                priority = 2;
+                break;
+            case "Printer error":
+                priority = 3;
+                break;
+            case "Pipeline error":
+                priority = 4;
+                break;
+            case "Scanner error":
+                priority = 5;
+                break;
+            case "Camera error":
+                priority = 6;
+                break;
+            case "Network error":
+                priority = 7;
+                break;
+            case "Electric error":
+                priority = 8;
+                break;
+            default:
+                priority = 1;
+                break;
+        }
+        return priority;
+    }
 }

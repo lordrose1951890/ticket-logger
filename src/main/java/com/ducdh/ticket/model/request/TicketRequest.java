@@ -20,16 +20,21 @@ public class TicketRequest {
 
     private String status;
 
-    public TicketRequest(String id, String description, String type, String fileUri, String status) {
+    private Long assignTo;
+
+    public TicketRequest(String id, String description, String type, String fileUri,
+                         String status, Long assignTo) {
         this.id = id;
         this.description = description;
         this.type = type;
         this.fileUri = fileUri;
         this.status = status;
+        this.assignTo = assignTo;
     }
 
     public static TicketRequest of(Ticket ticket) {
         return new TicketRequest(ticket.getId(), ticket.getDescription(),
-                ticket.getType(), ticket.getFileUri(), ticket.getStatus());
+                ticket.getType(), ticket.getFileUri(), ticket.getStatus(),
+                ticket.getAssignTo());
     }
 }

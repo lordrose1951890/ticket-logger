@@ -34,15 +34,15 @@ public class TicketIdGenerator implements IdentifierGenerator {
         int max;
 
         ids.stream().forEach(id -> {
-            String date = id.replaceAll("[^0-9\\&/]", "");
-            dates.add(parse(date, "dd/MM/yy"));
+            String date = id.replaceAll("[^0-9\\&-]", "");
+            dates.add(parse(date, "dd-MM-yy"));
         });
 
         if (!dates. isEmpty()) {
             Date maxDate = Collections.max(dates, Date::compareTo);
-            if (parse(parse(new Date(), "dd/MM/yy"), "dd/MM/yy")
+            if (parse(parse(new Date(), "dd-MM-yy"), "dd-MM-yy")
                     .compareTo(maxDate) >= 0) {
-                max = ids.stream().map(id -> id.replaceAll("[\\d\\&/]", ""))
+                max = ids.stream().map(id -> id.replaceAll("[\\d\\&-]", ""))
                         .mapToInt(converter::toNumeric)
                         .max()
                         .orElse(0);
@@ -54,6 +54,6 @@ public class TicketIdGenerator implements IdentifierGenerator {
         }
         String nextId = converter.toAlphabetic(max + 1);
 
-        return parse(new Date(), "dd/MM/yy") + nextId;
+        return parse(new Date(), "dd-MM-yy") + nextId;
     }
 }
