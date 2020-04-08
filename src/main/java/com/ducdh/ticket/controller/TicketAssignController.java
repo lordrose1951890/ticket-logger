@@ -2,7 +2,6 @@ package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.constant.Api;
 import com.ducdh.ticket.service.TicketAssignService;
-import com.ducdh.ticket.service.impl.TicketAssignServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
