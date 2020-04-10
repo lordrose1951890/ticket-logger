@@ -13,12 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "tbl_ticket")
 @Data
-public class Ticket implements Serializable {
+public class Ticket {
 
     @Id
     @GeneratedValue(generator = "ticket-generator")
