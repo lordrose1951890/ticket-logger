@@ -20,6 +20,9 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RedisTicketService redisTicketService;
+
     @Override
     public List<Ticket> getAll() {
         return ticketRepository.findAll();
@@ -27,6 +30,10 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket getOne(String id) {
+        Ticket result = redisTicketService.find(id);
+        if (result != null) {
+            return result;
+        }
         return ticketRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket not found" + id));
     }
@@ -47,7 +54,10 @@ public class TicketServiceImpl implements TicketService {
         newTicket.setUser(userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " +
                         request.getUserId())));
-        return ticketRepository.save(newTicket);
+
+        newTicket = ticketRepository.save(newTicket);
+        redisTicketService.save(newTicket);
+        return newTicket;
     }
 
     @Override
@@ -58,6 +68,7 @@ public class TicketServiceImpl implements TicketService {
             ticket.setFileUri(request.getDescription());
             ticket.setStatus(request.getStatus());
             ticket.setAssignTo(request.getAssignTo());
+            redisTicketService.save(ticket);
             return ticketRepository.save(ticket);
         }).orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " +
                 ticketId));
@@ -68,6 +79,8 @@ public class TicketServiceImpl implements TicketService {
         Ticket currTicket = ticketRepository.findById(ticketId)
                 .orElseThrow(() ->  new ResourceNotFoundException("Ticket not found: " +
                         ticketId));
+
+        redisTicketService.delete(ticketId);
         ticketRepository.delete(currTicket);
     }
 }

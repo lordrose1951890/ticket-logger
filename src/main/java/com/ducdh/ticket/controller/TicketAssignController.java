@@ -2,6 +2,7 @@ package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.constant.Api;
 import com.ducdh.ticket.service.TicketAssignService;
+import com.ducdh.ticket.service.impl.RedisTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,9 @@ public class TicketAssignController {
     @Autowired
     private TicketAssignService ticketAssignService;
 
+    @Autowired
+    private RedisTicketService redisTicketService;
+
     @GetMapping("/{userId}")
     ResponseEntity<?> getCurrentTicket(@PathVariable Long userId) {
         return ResponseEntity.ok(ticketAssignService.userAssignableCheck(userId));
@@ -27,5 +31,10 @@ public class TicketAssignController {
     @PostMapping("/{userId}")
     ResponseEntity<?> assignTicket(@PathVariable Long userId) {
         return ResponseEntity.ok(ticketAssignService.assignTickets(userId));
+    }
+
+    @GetMapping("/redis/{userId}")
+    ResponseEntity<?> redis(@PathVariable String ticketId) {
+        return ResponseEntity.ok(redisTicketService.find(ticketId));
     }
 }
