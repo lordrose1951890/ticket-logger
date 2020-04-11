@@ -1,10 +1,11 @@
 package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.constant.Api;
-import com.ducdh.ticket.entity.Ticket;
 import com.ducdh.ticket.model.request.TicketRequest;
 import com.ducdh.ticket.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;

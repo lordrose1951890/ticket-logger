@@ -33,7 +33,7 @@ public class TicketAssignController {
         return ResponseEntity.ok(ticketAssignService.assignTickets(userId));
     }
 
-    @GetMapping("/redis/{userId}")
+    @GetMapping("/redis/{ticketId}")
     ResponseEntity<?> redis(@PathVariable String ticketId) {
         return ResponseEntity.ok(redisTicketService.find(ticketId));
     }

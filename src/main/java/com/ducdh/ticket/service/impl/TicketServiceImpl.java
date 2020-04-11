@@ -6,12 +6,14 @@ import com.ducdh.ticket.model.request.TicketRequest;
 import com.ducdh.ticket.repository.TicketRepository;
 import com.ducdh.ticket.repository.UserRepository;
 import com.ducdh.ticket.service.TicketService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class TicketServiceImpl implements TicketService {
 
     @Autowired
@@ -25,6 +27,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<Ticket> getAll() {
+        log.info("Going to the DB");
         return ticketRepository.findAll();
     }
 
@@ -32,6 +35,7 @@ public class TicketServiceImpl implements TicketService {
     public Ticket getOne(String id) {
         Ticket result = redisTicketService.find(id);
         if (result != null) {
+            log.info("Not going to the DB - Caching by Redis");
             return result;
         }
         return ticketRepository.findById(id)

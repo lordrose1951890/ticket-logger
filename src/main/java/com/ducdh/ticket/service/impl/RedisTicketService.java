@@ -32,6 +32,6 @@ public class RedisTicketService {
     }
 
     public void delete(String id) {
-        hashOperations.delete(id);
+        hashOperations.delete(TICKET, id);
     }
 }

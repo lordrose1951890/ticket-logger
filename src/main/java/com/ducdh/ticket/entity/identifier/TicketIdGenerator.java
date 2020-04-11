@@ -41,7 +41,7 @@ public class TicketIdGenerator implements IdentifierGenerator {
         if (!dates. isEmpty()) {
             Date maxDate = Collections.max(dates, Date::compareTo);
             if (parse(parse(new Date(), "dd-MM-yy"), "dd-MM-yy")
-                    .compareTo(maxDate) >= 0) {
+                    .compareTo(maxDate) <= 0) {
                 max = ids.stream().map(id -> id.replaceAll("[\\d\\&-]", ""))
                         .mapToInt(converter::toNumeric)
                         .max()
