@@ -18,6 +18,11 @@ public class Account implements Serializable {
 
     private String password;
 
+    @Column(name = "uid")
+    private String userId;
+
+    private String email;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)

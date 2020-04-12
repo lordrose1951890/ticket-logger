@@ -24,4 +24,11 @@ public class AccountDetailsService implements UserDetailsService {
                         new UsernameNotFoundException("Username not found: " + username));
         return new User(account.getUsername(), account.getPassword(), new ArrayList<>());
     }
+
+    public UserDetails loadUserByFirebaseUserId(String uid) {
+        Account account = repository.findByUserId(uid)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("User not found: " + uid));
+        return new User(account.getUsername(), account.getPassword(), new ArrayList<>());
+    }
 }

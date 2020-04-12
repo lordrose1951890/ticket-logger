@@ -20,6 +20,9 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
+    private FirebaseUserServiceImpl firebaseUserService;
+
+    @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
@@ -37,17 +40,25 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccountByFirebaseUid(String uid) {
+        return accountRepository.findByUserId(uid).orElseThrow(() ->
+                new ResourceNotFoundException("Account not found: " + uid));
+    }
+
+    @Override
     public Account save(AccountRequest account) {
         if (accountRepository.existsById(account.getUsername())) {
             throw new ResourceNotFoundException("Username is taken");
         }
+        String uid = firebaseUserService.createFirebaseUser(account.getEmail());
         Account newAcc = new Account();
         User tempUser = new User();
         newAcc.setUsername(account.getUsername());
         newAcc.setPassword(encoder.encode(account.getPassword()));
+        newAcc.setEmail(account.getEmail());
+        newAcc.setUserId(uid);
         tempUser.setName(account.getName());
         newAcc.setUser(tempUser);
-
         return accountRepository.save(newAcc);
     }
 
