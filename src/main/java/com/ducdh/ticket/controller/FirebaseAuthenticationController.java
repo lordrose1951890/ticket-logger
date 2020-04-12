@@ -2,6 +2,7 @@ package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.constant.Api;
 import com.ducdh.ticket.model.request.FirebaseAuthRequest;
+import com.ducdh.ticket.model.response.JwtResponse;
 import com.ducdh.ticket.service.UserService;
 import com.ducdh.ticket.service.impl.AccountDetailsService;
 import com.ducdh.ticket.service.impl.FirebaseUserServiceImpl;
@@ -36,7 +37,7 @@ public class FirebaseAuthenticationController {
     @PostMapping
     ResponseEntity<?> verifyFirebaseIDToken(@RequestBody FirebaseAuthRequest authRequest) {
         FirebaseToken token = firebaseUserService.verifyIdToken(authRequest.getIdToken());
-        return ResponseEntity.ok(createTokenFromFirebaseToken(token));
+        return ResponseEntity.ok(new JwtResponse(createTokenFromFirebaseToken(token)));
     }
 
     private String createTokenFromFirebaseToken(FirebaseToken token) {
