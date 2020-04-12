@@ -33,6 +33,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByFirebaseUid(String uid) {
+        Long userId = accountService.getAccountByFirebaseUid(uid).getUser().getId();
+        return userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("user not found: " + userId));
+    }
+
+    @Override
     public User save(User user) {
         return userRepository.save(user);
     }

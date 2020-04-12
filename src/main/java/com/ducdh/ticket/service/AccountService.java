@@ -12,6 +12,8 @@ public interface AccountService {
 
     Account getAccount(String username);
 
+    Account getAccountByFirebaseUid(String uid);
+
     Account save(AccountRequest account);
 
     Account update(Account account);

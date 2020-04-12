@@ -10,6 +10,8 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
+    User getUserByFirebaseUid(String uid);
+
     User save(User user);
 
     User update(User user);

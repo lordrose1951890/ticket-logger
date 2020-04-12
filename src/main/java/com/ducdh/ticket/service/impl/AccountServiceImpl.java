@@ -40,6 +40,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccountByFirebaseUid(String uid) {
+        return accountRepository.findByUserId(uid).orElseThrow(() ->
+                new ResourceNotFoundException("Account not found: " + uid));
+    }
+
+    @Override
     public Account save(AccountRequest account) {
         if (accountRepository.existsById(account.getUsername())) {
             throw new ResourceNotFoundException("Username is taken");
