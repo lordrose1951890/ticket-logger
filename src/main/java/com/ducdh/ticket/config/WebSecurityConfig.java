@@ -21,7 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String authEntry = "/api/v1/authenticate";
-    private final String[] whiteList = {authEntry, "/v2/api-docs",
+    private final String firebaseAuthEntry = "/api/v1/firebase";
+    private final String[] whiteList = {authEntry, firebaseAuthEntry, "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",
@@ -59,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests().antMatchers(whiteList).permitAll()
-        .anyRequest().permitAll()
+        .anyRequest().authenticated()
                 .and()
         .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()

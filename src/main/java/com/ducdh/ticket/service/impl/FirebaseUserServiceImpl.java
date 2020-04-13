@@ -16,6 +16,7 @@ public class FirebaseUserServiceImpl {
         try {
             return auth.verifyIdToken(idToken);
         } catch (FirebaseAuthException e) {
+            System.out.println(e.getErrorCode() + " - " + e.getMessage());
             throw new FirebaseUnauthorizedException("Unauthorized");
         }
     }
