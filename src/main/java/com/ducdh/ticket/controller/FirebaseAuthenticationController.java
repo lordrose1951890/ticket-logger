@@ -1,12 +1,16 @@
 package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.constant.Api;
+import com.ducdh.ticket.model.exception.FirebaseUnauthorizedException;
 import com.ducdh.ticket.model.request.FirebaseAuthRequest;
 import com.ducdh.ticket.model.response.JwtResponse;
 import com.ducdh.ticket.service.UserService;
+import com.ducdh.ticket.model.response.JwtResponse;
 import com.ducdh.ticket.service.impl.AccountDetailsService;
 import com.ducdh.ticket.service.impl.FirebaseUserServiceImpl;
 import com.ducdh.ticket.util.JwtTokenUtil;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

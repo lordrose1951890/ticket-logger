@@ -2,6 +2,7 @@ package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.Ticket;
 import com.ducdh.ticket.model.exception.ResourceNotFoundException;
+import com.ducdh.ticket.model.response.TicketResponse;
 import com.ducdh.ticket.repository.TicketRepository;
 import com.ducdh.ticket.repository.UserRepository;
 import com.ducdh.ticket.service.TicketAssignService;
@@ -23,17 +24,22 @@ public class TicketAssignServiceImpl implements TicketAssignService {
     private TicketRepository ticketRepository;
 
     @Override
-    public Ticket assignTickets(Long userId) {
+    public TicketResponse assignTickets(Long userId) {
         List<Ticket> assignable = findAllAssignable();
         if (assignable.isEmpty()) {
-            throw new ResourceNotFoundException("Now available ticket");
+            throw new ResourceNotFoundException("No available ticket");
         }
         Queue<Ticket> ticketQueue = new PriorityQueue<>(ticketComparator);
         ticketQueue.addAll(assignable);
-        Ticket temp = ticketQueue.remove();
+        String ticketId = ticketQueue.remove().getId();
+        Ticket temp = ticketRepository.findById(ticketId).get();
+
         temp.setAssignTo(userId);
         temp.setStatus("working");
-        return ticketRepository.save(temp);
+
+        ticketRepository.save(temp);
+
+        return TicketResponse.of(temp);
     }
 
     @Override

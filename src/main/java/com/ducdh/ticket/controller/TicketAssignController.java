@@ -1,6 +1,9 @@
 package com.ducdh.ticket.controller;
 
 import com.ducdh.ticket.constant.Api;
+import com.ducdh.ticket.entity.Ticket;
+import com.ducdh.ticket.model.request.TicketRequest;
+import com.ducdh.ticket.model.response.TicketResponse;
 import com.ducdh.ticket.service.TicketAssignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +24,13 @@ public class TicketAssignController {
 
     @GetMapping("/{userId}")
     ResponseEntity<?> getCurrentTicket(@PathVariable Long userId) {
-        return ResponseEntity.ok(ticketAssignService.userAssignableCheck(userId));
+        Ticket ticket = ticketAssignService.userAssignableCheck(userId);
+        return ResponseEntity.ok(TicketResponse.of(ticket));
     }
 
     @PostMapping("/{userId}")
     ResponseEntity<?> assignTicket(@PathVariable Long userId) {
-        return ResponseEntity.ok(ticketAssignService.assignTickets(userId));
+        TicketResponse ticketResponse = ticketAssignService.assignTickets(userId);
+        return ResponseEntity.ok(ticketResponse);
     }
 }
