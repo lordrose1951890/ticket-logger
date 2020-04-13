@@ -1,9 +1,11 @@
 package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.Shop;
+import com.ducdh.ticket.entity.User;
 import com.ducdh.ticket.model.exception.ResourceNotFoundException;
 import com.ducdh.ticket.model.request.ShopRequest;
 import com.ducdh.ticket.repository.ShopRepository;
+import com.ducdh.ticket.repository.UserRepository;
 import com.ducdh.ticket.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
 
+    private final UserRepository userRepository;
+
     @Override
     public List<Shop> findAll() {
         return shopRepository.findAll();
@@ -25,6 +29,20 @@ public class ShopServiceImpl implements ShopService {
     public Shop findByShopId(Long id) {
         return shopRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Shop not found: " + id));
+    }
+
+    @Override
+    public Shop findByUserId(Long userId) {
+        User curUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
+
+        if (curUser.getShop() == null) {
+            throw new ResourceNotFoundException("No available shop for user: " + userId);
+        }
+
+        return shopRepository.findById(curUser.getShop().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Shop not found: " +
+                        curUser.getShop().getId()));
     }
 
     @Override

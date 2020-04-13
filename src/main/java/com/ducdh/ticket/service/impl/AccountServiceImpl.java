@@ -1,11 +1,14 @@
 package com.ducdh.ticket.service.impl;
 
 import com.ducdh.ticket.entity.Account;
+import com.ducdh.ticket.entity.Shop;
 import com.ducdh.ticket.entity.User;
 import com.ducdh.ticket.model.exception.ResourceNotFoundException;
 import com.ducdh.ticket.model.request.AccountRequest;
 import com.ducdh.ticket.repository.AccountRepository;
+import com.ducdh.ticket.repository.ShopRepository;
 import com.ducdh.ticket.service.AccountService;
+import com.ducdh.ticket.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +27,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private ShopRepository shopRepository;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -53,11 +59,27 @@ public class AccountServiceImpl implements AccountService {
         String uid = firebaseUserService.createFirebaseUser(account.getEmail());
         Account newAcc = new Account();
         User tempUser = new User();
+        Shop tempShop;
+
         newAcc.setUsername(account.getUsername());
         newAcc.setPassword(encoder.encode(account.getPassword()));
         newAcc.setEmail(account.getEmail());
         newAcc.setUserId(uid);
+
+        if (account.getShopName() == null || account.getShopAddress() == null) {
+            tempShop = shopRepository.findById(0L).get();
+        } else {
+            tempShop = new Shop();
+            tempShop.setShopName(account.getShopName());
+            tempShop.setShopAddress(account.getShopAddress());
+        }
+
         tempUser.setName(account.getName());
+        tempUser.setRole(
+                (account.getRole() == null) ? "user" : account.getRole()
+        );
+        tempUser.setShop(tempShop);
+
         newAcc.setUser(tempUser);
         return accountRepository.save(newAcc);
     }

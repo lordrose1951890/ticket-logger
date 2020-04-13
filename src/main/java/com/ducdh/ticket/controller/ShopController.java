@@ -28,8 +28,13 @@ public class ShopController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getOneShop(@PathVariable Long id) {
+    public ResponseEntity<?> getOneShop(@PathVariable Long id) {
         return ResponseEntity.ok(shopService.findByShopId(id));
+    }
+
+    @GetMapping("/users/{userId}")
+    ResponseEntity<?> findByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(shopService.findByUserId(userId));
     }
 
     @PostMapping

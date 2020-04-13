@@ -11,6 +11,8 @@ public interface ShopService {
 
     Shop findByShopId(Long id);
 
+    Shop findByUserId(Long userId);
+
     Shop save(ShopRequest shop);
 
     Shop update(Shop shop);

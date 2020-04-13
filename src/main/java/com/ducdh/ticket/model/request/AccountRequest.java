@@ -16,4 +16,10 @@ public class AccountRequest implements Serializable {
 
     @Email(message = "Invalid email")
     private String email;
+
+    private String role;
+
+    private String shopName;
+
+    private String shopAddress;
 }
